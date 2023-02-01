@@ -1,0 +1,40 @@
+      +------------+      +------------+      +------------+
+      | Web Server |      | Application |      | Web Server |
+      |    Nginx   |      |   Server    |      |    Nginx   |
+      +------------+      +------------+      +------------+
+           |                          |                          |
+           |            +-------------------+            |
+           |            | Load Balancer    |            |
+           |            |     HAProxy      |            |
+           |            +-------------------+            |
+           |                          |                          |
+           |                          |                          |
+           |      +-----------+   |   +-----------+     |
+           |      | Firewall 1 |   |   | Firewall 2 |     |
+           |      +-----------+   |   +-----------+     |
+           |                          |                          |
+           |                          |                          |
+           |                         +--------+           |
+           |                         |  MySQL |           |
+           |                         | Database |          |
+           |                         +--------+           |
+           |                          |                          |
+           |      +-----------+   |   +-----------+     |
+           |      | Firewall 3 |   |   | Monitoring |     |
+           |      +-----------+   |   |   Client   |     |
+           |                          |   +-----------+     |
+           |                          |                          |
+
+Explanation:
+
+The three firewalls are added to provide security by blocking malicious traffic and controlling access to the website and its underlying infrastructure.
+The SSL certificate is used to serve the website content over HTTPS, which encrypts the communication between the user and the website to prevent eavesdropping or tampering.
+The three monitoring clients are added to collect data on the performance and behavior of the website and its underlying infrastructure, which can be used to identify and resolve issues. The monitoring tool used is Sumologic or other monitoring services.
+The monitoring tool collects data by sending data collection agents to the servers and components of the infrastructure, which send back performance and log data to the monitoring tool.
+To monitor the web server's Queries Per Second (QPS), you can use the monitoring tool to track the number of requests being processed by the web server and compare it to the number of requests it can handle.
+
+Issues:
+
+Terminating SSL at the load-balancer level is an issue because the load-balancer will have to handle a large amount of encrypted traffic, which can cause performance issues. It is recommended to terminate SSL at the web server level for improved performance.
+Having only one MySQL server capable of accepting writes is an issue because it creates a Single Point of Failure (SPOF), and the loss of that server would result in downtime for the website. It is recommended to set up a Primary-Replica (Master-Slave) cluster to provide redundancy.
+Having servers with all the same components (database, web server, and application server) on the same physical or virtual machine might be a problem because if that server fails, all the components will become unavailable, which can result in downtime for the website. It is recommended to separate the components onto different servers for improved reliability and availability.
