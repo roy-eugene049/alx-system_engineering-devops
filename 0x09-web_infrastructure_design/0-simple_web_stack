@@ -1,0 +1,25 @@
+Diagram:
+
+User (Computer) <-----> Internet <-----> Server (8.8.8.8)
+
+A server is a computer or device that provides services to other computers or devices on a network.
+
+The domain name (foobar.com) is used to identify and locate the website on the internet. The domain name serves as an address that can be easily remembered by humans, while the IP address (8.8.8.8) is a numerical label assigned to the server.
+
+The www record in www.foobar.com is a type of DNS (Domain Name System) record that maps the domain name to the IP address of the server.
+
+The role of the web server (Nginx) is to receive HTTP requests from the user's computer, process them, and return the appropriate response in the form of HTML, CSS, and JavaScript files.
+
+The role of the application server is to run the application code and handle the logic for processing data from the database. It acts as a bridge between the web server and the database.
+
+The database (MySQL) is used to store and retrieve data for the application. It acts as the persistent storage for the data processed by the application server.
+
+The server communicates with the user's computer using the HTTP protocol, which is the standard for transmitting data over the web.
+
+Issues:
+
+Single Point of Failure (SPOF): This infrastructure has a single server, which means that if the server fails, the entire website will become unavailable.
+
+Downtime: If maintenance is needed, such as deploying new code, the web server may need to be restarted, which will cause downtime for the website.
+
+Scalability: If there is a sudden increase in incoming traffic, this infrastructure will not be able to handle the increased load, leading to slow performance and potential downtime. To scale the infrastructure, additional servers and load balancing would need to be added.
