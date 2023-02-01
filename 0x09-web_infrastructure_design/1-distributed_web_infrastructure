@@ -1,0 +1,28 @@
+      +------------+      +------------+
+      | Web Server |      | Application |
+      |    Nginx   |      |   Server    |
+      +------------+      +------------+
+           |                          |
+           |            +-------------------+
+           |            | Load Balancer    |
+           |            |     HAProxy      |
+           |            +-------------------+
+           |                          |
+           |                         +--------+
+           |                         |  MySQL |
+           |                         | Database |
+           |                         +--------+
+
+Explanation:
+
+The web server (Nginx) is responsible for serving the website content to the user, it acts as the front-end to the application.
+The application server hosts the application code and runs the code to generate dynamic content for the website.
+The load-balancer (HAProxy) distributes incoming requests to the web and application servers, this helps to balance the load and increase availability. The distribution algorithm used is round-robin, it distributes incoming requests to the available servers one-by-one in a cyclic fashion.
+The load-balancer is configured in an Active-Passive setup, which means that one server is designated as the primary server and handles the incoming requests, while the other server is a secondary backup in case the primary fails. In contrast, an Active-Active setup would have both servers handling incoming requests.
+The database is set up in a Primary-Replica (Master-Slave) cluster, where the Primary node is the master database that all writes and updates are made to, while the Replica node is a secondary database that replicates the data from the primary. The purpose of this setup is to increase reliability and availability of the data.
+In regard to the application, the Primary node is used as the main source of data and the Replica node is used as a backup in case the primary fails.
+
+Issues:
+Single Points of Failure (SPOF) exist with this infrastructure as the loss of the load-balancer or the primary node in the database cluster would result in downtime for the website.
+Security issues are present as there is no firewall in place to block malicious traffic and no HTTPS to secure the communication between the user and the website.
+Monitoring is also not in place, which makes it difficult to detect issues with the infrastructure and respond in a timely manner.
