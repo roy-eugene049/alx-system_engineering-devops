@@ -1,0 +1,35 @@
+       +------------+
+       | Web Server |
+       |   Nginx    |
+       +------------+
+            |
+            |  +-------------------+
+            |  | Load Balancer 1   |
+            |  |     HAProxy       |
+            |  +-------------------+
+            |            |
+            |            |
+            |  +-------------------+
+            |  | Load Balancer 2   |
+            |  |     HAProxy       |
+            |  +-------------------+
+            |
+            |
+       +------------+
+       | Application|
+       |   Server   |
+       +------------+
+            |
+            |
+       +------------+
+       |    MySQL   |
+       |  Database  |
+       +------------+
+
+Explanation:
+
+The web server (Nginx) is added to handle incoming HTTP requests and serve the website content to the user.
+The load balancers (HAProxy) are added to distribute incoming requests evenly among multiple web servers, improving performance and reliability. The load balancers are configured as a cluster, which means they work together to ensure high availability and share the load.
+The application server is added to run the application code and handle incoming requests from the web server.
+The database (MySQL) is added to store the website's data and make it accessible to the application server.
+Each component has its own separate server to improve reliability and availability. If one component fails, it won't affect the other components, ensuring that the website can continue to function properly.
